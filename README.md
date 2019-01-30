@@ -1,4 +1,4 @@
-# AWS Vault Load Balancer Terraform Module (External Fork)
+# AWS Vault Load Balancer Terraform Module
 
 Provisions resources for a Vault application load balancer in AWS.
 
