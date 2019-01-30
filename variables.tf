@@ -72,6 +72,10 @@ variable "lb_logs_enabled" {
   default     = true
 }
 
+variable "s3_logging_target" {
+  description = "Target bucket for s3 logs."
+}
+
 variable "tags" {
   description = "Optional map of tags to set on resources, defaults to empty map."
   type        = "map"

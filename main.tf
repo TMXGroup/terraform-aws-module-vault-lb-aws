@@ -83,6 +83,11 @@ resource "aws_s3_bucket" "vault_lb_access_logs" {
     }
   }
 
+  logging {
+    target_bucket = "${var.s3_logging_target}"
+    target_prefix = "${var.lb_bucket_prefix}log/"
+  }
+
   policy = <<POLICY
 {
   "Id": "Policy",
@@ -99,6 +104,20 @@ resource "aws_s3_bucket" "vault_lb_access_logs" {
         "AWS": [
           "${data.aws_elb_service_account.vault_lb_access_logs.arn}"
         ]
+      }
+    },
+    {
+      "Sid": "ForceSSLOnlyAccess",
+      "Effect": "Deny",
+      "Principal": {
+          "AWS": "*"
+      },
+      "Action": "s3:*",
+      "Resource": "arn:aws:s3:::${random_id.vault_lb_access_logs.hex}${var.lb_bucket_prefix != "" ? format("//", var.lb_bucket_prefix) : ""}/*",
+      "Condition": {
+          "Bool": {
+              "aws:SecureTransport": "false"
+          }
       }
     }
   ]
