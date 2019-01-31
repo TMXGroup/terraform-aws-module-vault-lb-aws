@@ -236,7 +236,7 @@ resource "aws_lb_listener" "vault_443" {
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2017-01"
-  certificate_arn   = "arn:aws:acm:us-east-1:203016562927:certificate/adce9064-673f-433f-a6fb-5100500bfc4c"
+  certificate_arn   = "${var.ext_cert_arn}"
 
   default_action {
     target_group_arn = "${aws_lb_target_group.vault_https_8200.arn}"

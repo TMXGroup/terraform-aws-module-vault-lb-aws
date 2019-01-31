@@ -32,6 +32,10 @@ variable "use_lb_cert" {
   default     = false
 }
 
+variable "ext_cert_arn" {
+  description = "AWS issued cert ARN"
+  default     = ""
+}
 variable "lb_cert" {
   description = "Certificate for LB IAM server certificate."
   default     = ""
