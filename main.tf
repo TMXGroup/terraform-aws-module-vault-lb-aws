@@ -54,8 +54,6 @@ resource "aws_security_group_rule" "vault_lb_http_80" [
 }
 ]
 
-
-
 resource "aws_security_group_rule" "vault_lb_https_443" {
   count = "${var.create && var.use_lb_cert ? 1 : 0}"
 
