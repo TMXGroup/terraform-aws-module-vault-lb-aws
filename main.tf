@@ -249,8 +249,12 @@ resource "aws_lb_listener" "vault_80" {
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = "${aws_lb_target_group.vault_http_8200.arn}"
-    type             = "forward"
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
   }
 }
 
