@@ -244,7 +244,7 @@ resource "aws_lb_target_group" "vault_http_8200" {
 resource "aws_lb_listener" "vault_80" {
   count = "${var.create && !var.use_lb_cert ? 1 : 0}"
 
-  load_balancer_arn = "${aws_lb.vault.arn}"
+  listener_arn = "${aws_lb.vault.arn}"
   port              = "80"
   protocol          = "HTTP"
 
