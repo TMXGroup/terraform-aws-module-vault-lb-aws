@@ -11,8 +11,7 @@ resource "aws_security_group" "vault_lb" {
   tags        = "${merge(var.tags, map("Name", format("%s-vault-lb", var.name)))}"
 }
 
-resource "aws_security_group_rule" "vault_lb_http_80" [
-  {
+resource "aws_security_group_rule" "vault_lb_http_80" {
   count = "${var.create ? 1 : 0}"
 
   security_group_id = "${aws_security_group.vault_lb.id}"
@@ -20,106 +19,10 @@ resource "aws_security_group_rule" "vault_lb_http_80" [
   protocol          = "tcp"
   from_port         = 80
   to_port           = 80
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${tmx-ip-block-inet}")}"]
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-},
-  {
-  count = "${var.create ? 1 : 0}"
-
-  security_group_id = "${aws_security_group.vault_lb.id}"
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 80
-  to_port           = 80
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${tmx-ip-block-dmz}")}"]
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-},
-  {
-  count = "${var.create ? 1 : 0}"
-
-  security_group_id = "${aws_security_group.vault_lb.id}"
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 80
-  to_port           = 80
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${tmx-ip-block-corp-nat}"})}"]
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}"})}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}"})}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}"})}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}"})}"]
->>>>>>> parent of bf63862... big update to redo SG's
-},
-  {
-  count = "${var.create ? 1 : 0}"
-
-  security_group_id = "${aws_security_group.vault_lb.id}"
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 80
-  to_port           = 80
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${tmx-ip-block-wifi-firewall}")}"]
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "0.0.0.0/0")}"]
 }
-]
 
-resource "aws_security_group_rule" "vault_lb_https_443" [
-  {
+resource "aws_security_group_rule" "vault_lb_https_443" {
   count = "${var.create && var.use_lb_cert ? 1 : 0}"
 
   security_group_id = "${aws_security_group.vault_lb.id}"
@@ -127,103 +30,8 @@ resource "aws_security_group_rule" "vault_lb_https_443" [
   protocol          = "tcp"
   from_port         = 443
   to_port           = 443
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${tmx-ip-block-inet}")}"]
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-},
-  {
-  count = "${var.create && var.use_lb_cert ? 1 : 0}"
-
-  security_group_id = "${aws_security_group.vault_lb.id}"
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 443
-  to_port           = 443
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${tmx-ip-block-dmz}")}"]
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-},
-  {
-  count = "${var.create && var.use_lb_cert ? 1 : 0}"
-
-  security_group_id = "${aws_security_group.vault_lb.id}"
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 443
-  to_port           = 443
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${tmx-ip-block-corp-nat}")}"]
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-},
-  {
-  count = "${var.create && var.use_lb_cert ? 1 : 0}"
-
-  security_group_id = "${aws_security_group.vault_lb.id}"
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 443
-  to_port           = 443
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${tmx-ip-block-wifi-firewall}")}"]
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
-=======
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
->>>>>>> parent of bf63862... big update to redo SG's
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "0.0.0.0/0")}"]
 }
-]
 
 resource "aws_security_group_rule" "vault_lb_tcp_8200" {
   count = "${var.create ? 1 : 0}"
@@ -372,17 +180,13 @@ resource "aws_lb_target_group" "vault_http_8200" {
 resource "aws_lb_listener" "vault_80" {
   count = "${var.create && !var.use_lb_cert ? 1 : 0}"
 
-  listener_arn = "${aws_lb.vault.arn}"
+  load_balancer_arn = "${aws_lb.vault.arn}"
   port              = "80"
   protocol          = "HTTP"
 
-  action {
-    type = "redirect"
-
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
+  default_action {
+    target_group_arn = "${aws_lb_target_group.vault_http_8200.arn}"
+    type             = "forward"
   }
 }
 
