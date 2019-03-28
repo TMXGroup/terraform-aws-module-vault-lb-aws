@@ -279,7 +279,6 @@ resource "aws_lb_listener" "vault_80" {
       port        = "443"
       protocol    = "HTTPS"
       status_code = "HTTP_301"
-    }
   }
 }
 
