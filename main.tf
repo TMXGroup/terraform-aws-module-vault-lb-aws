@@ -13,36 +13,44 @@ resource "aws_security_group" "vault_lb" {
 
 resource "aws_security_group_rule" "vault_lb_http_80" [
   {
+  count = "${var.create ? 1 : 0}"
+
   security_group_id = "${aws_security_group.vault_lb.id}"
   type              = "ingress"
   protocol          = "tcp"
   from_port         = 80
   to_port           = 80
-  cidr_blocks       = ["${var.tmx-ip-block-inet}"]
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
 },
   {
+  count = "${var.create ? 1 : 0}"
+
   security_group_id = "${aws_security_group.vault_lb.id}"
   type              = "ingress"
   protocol          = "tcp"
   from_port         = 80
   to_port           = 80
-  cidr_blocks       = ["${var.tmx-ip-block-dmz}"]
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
 },
   {
+  count = "${var.create ? 1 : 0}"
+
   security_group_id = "${aws_security_group.vault_lb.id}"
   type              = "ingress"
   protocol          = "tcp"
   from_port         = 80
   to_port           = 80
-  cidr_blocks       = ["${var.tmx-ip-block-corp-nat}"]
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}"})}"]
 },
   {
+  count = "${var.create ? 1 : 0}"
+
   security_group_id = "${aws_security_group.vault_lb.id}"
   type              = "ingress"
   protocol          = "tcp"
   from_port         = 80
   to_port           = 80
-  cidr_blocks       = ["${var.tmx-ip-block-wifi-firewall}"]
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
 }
 ]
 
@@ -55,7 +63,7 @@ resource "aws_security_group_rule" "vault_lb_https_443" [
   protocol          = "tcp"
   from_port         = 443
   to_port           = 443
-  cidr_blocks       = ["${var.tmx-ip-block-inet}"]
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
 },
   {
   count = "${var.create && var.use_lb_cert ? 1 : 0}"
@@ -65,7 +73,7 @@ resource "aws_security_group_rule" "vault_lb_https_443" [
   protocol          = "tcp"
   from_port         = 443
   to_port           = 443
-  cidr_blocks       = ["${var.tmx-ip-block-dmz}"]
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
 },
   {
   count = "${var.create && var.use_lb_cert ? 1 : 0}"
@@ -75,7 +83,7 @@ resource "aws_security_group_rule" "vault_lb_https_443" [
   protocol          = "tcp"
   from_port         = 443
   to_port           = 443
-  cidr_blocks       = ["${var.tmx-ip-block-corp-nat}"]
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}")}"]
 },
   {
   count = "${var.create && var.use_lb_cert ? 1 : 0}"
@@ -85,52 +93,20 @@ resource "aws_security_group_rule" "vault_lb_https_443" [
   protocol          = "tcp"
   from_port         = 443
   to_port           = 443
-  cidr_blocks       = ["${var.tmx-ip-block-wifi-firewall}"]
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
 }
 ]
 
-resource "aws_security_group_rule" "vault_lb_tcp_8200" [
-  {
-  count = "${var.create && var.use_lb_cert ? 1 : 0}"
+resource "aws_security_group_rule" "vault_lb_tcp_8200" {
+  count = "${var.create ? 1 : 0}"
 
   security_group_id = "${aws_security_group.vault_lb.id}"
   type              = "ingress"
   protocol          = "tcp"
   from_port         = 8200
   to_port           = 8200
-  cidr_blocks       = ["${var.tmx-ip-block-inet}"]
-},
-  {
-  count = "${var.create && var.use_lb_cert ? 1 : 0}"
-
-  security_group_id = "${aws_security_group.vault_lb.id}"
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 8200
-  to_port           = 8200
-  cidr_blocks       = ["${var.tmx-ip-block-dmz}"]
-},
-  {
-  count = "${var.create && var.use_lb_cert ? 1 : 0}"
-
-  security_group_id = "${aws_security_group.vault_lb.id}"
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 8200
-  to_port           = 8200
-  cidr_blocks       = ["${var.tmx-ip-block-corp-nat}"]
-},
-  {
-  count = "${var.create && var.use_lb_cert ? 1 : 0}"
-
-  security_group_id = "${aws_security_group.vault_lb.id}"
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 8200
-  to_port           = 8200
-  cidr_blocks       = ["${var.tmx-ip-block-wifi-firewall}"]
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "0.0.0.0/0")}"]
 }
-]
 
 resource "aws_security_group_rule" "outbound_tcp" {
   count = "${var.create ? 1 : 0}"
