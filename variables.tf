@@ -85,3 +85,23 @@ variable "tags" {
   type        = "map"
   default     = {}
 }
+
+variable "tmx-ip-block-inet" {
+  description = "TMX Public IP address range for INET firewall"
+  default     = "142.201.1.0/24"
+}
+
+variable "tmx-ip-block-dmz" {
+  description = "TMX Public IP address range for DMZ servers"
+  default     = "142.201.0.0/24"
+}
+
+variable "tmx-ip-block-corp-nat" {
+  description = "TMX Public IP address range for Internet Access"
+  default     = "142.201.5.0/24"
+}
+
+variable "tmx-ip-block-wifi-firewall" {
+  description = "TMX Public IP address range for WiFi Internet Access"
+  default     = "142.201.8.0/24"
+}
