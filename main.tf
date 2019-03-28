@@ -23,7 +23,11 @@ resource "aws_security_group_rule" "vault_lb_http_80" [
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${tmx-ip-block-inet}")}"]
+=======
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
+>>>>>>> parent of bf63862... big update to redo SG's
 =======
   cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
 >>>>>>> parent of bf63862... big update to redo SG's
@@ -42,6 +46,7 @@ resource "aws_security_group_rule" "vault_lb_http_80" [
   protocol          = "tcp"
   from_port         = 80
   to_port           = 80
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -55,6 +60,9 @@ resource "aws_security_group_rule" "vault_lb_http_80" [
 =======
   cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
 >>>>>>> parent of bf63862... big update to redo SG's
+=======
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
+>>>>>>> parent of bf63862... big update to redo SG's
 },
   {
   count = "${var.create ? 1 : 0}"
@@ -64,6 +72,7 @@ resource "aws_security_group_rule" "vault_lb_http_80" [
   protocol          = "tcp"
   from_port         = 80
   to_port           = 80
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -77,6 +86,9 @@ resource "aws_security_group_rule" "vault_lb_http_80" [
 =======
   cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}"})}"]
 >>>>>>> parent of bf63862... big update to redo SG's
+=======
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}"})}"]
+>>>>>>> parent of bf63862... big update to redo SG's
 },
   {
   count = "${var.create ? 1 : 0}"
@@ -89,7 +101,11 @@ resource "aws_security_group_rule" "vault_lb_http_80" [
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${tmx-ip-block-wifi-firewall}")}"]
+=======
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
+>>>>>>> parent of bf63862... big update to redo SG's
 =======
   cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
 >>>>>>> parent of bf63862... big update to redo SG's
@@ -114,7 +130,11 @@ resource "aws_security_group_rule" "vault_lb_https_443" [
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${tmx-ip-block-inet}")}"]
+=======
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
+>>>>>>> parent of bf63862... big update to redo SG's
 =======
   cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-inet}")}"]
 >>>>>>> parent of bf63862... big update to redo SG's
@@ -133,6 +153,7 @@ resource "aws_security_group_rule" "vault_lb_https_443" [
   protocol          = "tcp"
   from_port         = 443
   to_port           = 443
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -146,6 +167,9 @@ resource "aws_security_group_rule" "vault_lb_https_443" [
 =======
   cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
 >>>>>>> parent of bf63862... big update to redo SG's
+=======
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-dmz}")}"]
+>>>>>>> parent of bf63862... big update to redo SG's
 },
   {
   count = "${var.create && var.use_lb_cert ? 1 : 0}"
@@ -155,6 +179,7 @@ resource "aws_security_group_rule" "vault_lb_https_443" [
   protocol          = "tcp"
   from_port         = 443
   to_port           = 443
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -168,6 +193,9 @@ resource "aws_security_group_rule" "vault_lb_https_443" [
 =======
   cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}")}"]
 >>>>>>> parent of bf63862... big update to redo SG's
+=======
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-corp-nat}")}"]
+>>>>>>> parent of bf63862... big update to redo SG's
 },
   {
   count = "${var.create && var.use_lb_cert ? 1 : 0}"
@@ -180,7 +208,11 @@ resource "aws_security_group_rule" "vault_lb_https_443" [
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${tmx-ip-block-wifi-firewall}")}"]
+=======
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
+>>>>>>> parent of bf63862... big update to redo SG's
 =======
   cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "${var.tmx-ip-block-wifi-firewall}")}"]
 >>>>>>> parent of bf63862... big update to redo SG's
