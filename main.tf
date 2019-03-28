@@ -19,7 +19,7 @@ resource "aws_security_group_rule" "vault_lb_http_80" {
   protocol          = "tcp"
   from_port         = 80
   to_port           = 80
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "0.0.0.0/0")}"]
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "142.201.5.0/24")}"]
 }
 
 resource "aws_security_group_rule" "vault_lb_https_443" {
@@ -30,7 +30,7 @@ resource "aws_security_group_rule" "vault_lb_https_443" {
   protocol          = "tcp"
   from_port         = 443
   to_port           = 443
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "0.0.0.0/0")}"]
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "142.201.5.0/24")}"]
 }
 
 resource "aws_security_group_rule" "vault_lb_tcp_8200" {
@@ -41,7 +41,7 @@ resource "aws_security_group_rule" "vault_lb_tcp_8200" {
   protocol          = "tcp"
   from_port         = 8200
   to_port           = 8200
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "0.0.0.0/0")}"]
+  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "142.201.5.0/24")}"]
 }
 
 resource "aws_security_group_rule" "outbound_tcp" {
