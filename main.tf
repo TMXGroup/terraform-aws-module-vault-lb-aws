@@ -11,39 +11,6 @@ resource "aws_security_group" "vault_lb" {
   tags        = "${merge(var.tags, map("Name", format("%s-vault-lb", var.name)))}"
 }
 
-resource "aws_security_group_rule" "vault_lb_http_80" {
-  count = "${var.create ? 1 : 0}"
-
-  security_group_id = "${aws_security_group.vault_lb.id}"
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 80
-  to_port           = 80
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "142.201.5.0/24")}"]
-}
-
-resource "aws_security_group_rule" "vault_lb_https_443" {
-  count = "${var.create && var.use_lb_cert ? 1 : 0}"
-
-  security_group_id = "${aws_security_group.vault_lb.id}"
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 443
-  to_port           = 443
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "142.201.5.0/24")}"]
-}
-
-resource "aws_security_group_rule" "vault_lb_tcp_8200" {
-  count = "${var.create ? 1 : 0}"
-
-  security_group_id = "${aws_security_group.vault_lb.id}"
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 8200
-  to_port           = 8200
-  cidr_blocks       = ["${split(",", var.is_internal_lb ? join(",", var.cidr_blocks) : "142.201.5.0/24")}"]
-}
-
 resource "aws_security_group_rule" "outbound_tcp" {
   count = "${var.create ? 1 : 0}"
 
