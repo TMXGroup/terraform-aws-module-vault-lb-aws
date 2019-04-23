@@ -32,7 +32,7 @@ variable "use_lb_cert" {
   default     = false
 }
 
-variable "use_lb_cert" {
+variable "use_lb_cert_external" {
   description = "Use certificate passed in for the LB IAM listener, \"lb_cert\" and \"lb_private_key\" must be passed in if true, defaults to false."
   default     = false
 }
