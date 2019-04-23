@@ -32,6 +32,11 @@ variable "use_lb_cert" {
   default     = false
 }
 
+variable "use_lb_cert" {
+  description = "Use certificate passed in for the LB IAM listener, \"lb_cert\" and \"lb_private_key\" must be passed in if true, defaults to false."
+  default     = false
+}
+
 variable "ext_cert_arn" {
   description = "AWS issued cert ARN"
   default     = ""
