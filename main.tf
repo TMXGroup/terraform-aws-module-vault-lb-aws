@@ -136,8 +136,8 @@ resource "aws_lb_target_group" "vault_http_8200" {
     timeout  = 5
     protocol = "HTTP"
     port     = "traffic-port"
-    path     = "/v1/sys/health?standbyok=true"
-    matcher  = "200,429"
+    path     = "/v1/sys/health"
+    matcher  = "200"
 
     healthy_threshold   = 2
     unhealthy_threshold = 3
@@ -188,8 +188,8 @@ resource "aws_lb_target_group" "vault_https_8200" {
     timeout  = 5
     protocol = "HTTPS"
     port     = "traffic-port"
-    path     = "/v1/sys/health?standbyok=true"
-    matcher  = "200,429"
+    path     = "/v1/sys/health"
+    matcher  = "200"
 
     healthy_threshold   = 2
     unhealthy_threshold = 3
